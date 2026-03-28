@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-/// Persists agent first-login (SMS OTP once) and enrolled MFA code on device.
+/// Agent auth: first login submission → SMS OTP once; later submissions → MFA.
+/// Routing does not use phone/password — only prior attempts + enrollment.
 class AgentAuthStorage {
   AgentAuthStorage(this._box);
 
@@ -9,11 +10,12 @@ class AgentAuthStorage {
   static const kMfaEnrolled = 'agent_mfa_enrolled';
   static const kFirstOtp = 'agent_first_otp_code';
   static const kFirstLoginCompleted = 'agent_first_login_completed';
+  /// How many times the user has submitted the login form (Continue). Starts at 0.
+  static const kLoginSubmitCount = 'agent_login_submit_count';
 
-  /// True after the first successful SMS OTP and MFA enrollment (not credential-specific).
+  /// True after SMS OTP succeeded and MFA enrollment finished.
   bool get hasCompletedFirstLogin {
     if (_box.get(kFirstLoginCompleted) == 'true') return true;
-    // Legacy installs that only stored enrollment flags.
     return isMfaEnrolled;
   }
 
@@ -21,20 +23,35 @@ class AgentAuthStorage {
 
   String? get savedMfaCode => _box.get(kFirstOtp);
 
+  /// Number of times the user pressed Continue on the login screen (persisted).
+  int get loginSubmitCount =>
+      int.tryParse(_box.get(kLoginSubmitCount) ?? '0') ?? 0;
+
   Future<void> saveFirstOtpAndEnrollMfa(String sixDigitCode) async {
-    await _box.put(kFirstOtp, sixDigitCode);
-    await _box.put(kMfaEnrolled, 'true');
-    await _box.put(kFirstLoginCompleted, 'true');
+    await _box.putAll({
+      kFirstOtp: sixDigitCode,
+      kMfaEnrolled: 'true',
+      kFirstLoginCompleted: 'true',
+    });
+    await _box.flush();
   }
 
-  /// Clears MFA enrollment so the next sign-in uses SMS OTP again (first-login path).
+  /// Call once per successful login validation, before navigating away from login.
+  Future<void> recordLoginSubmit() async {
+    final next = loginSubmitCount + 1;
+    await _box.put(kLoginSubmitCount, '$next');
+    await _box.flush();
+  }
+
+  /// Clears MFA enrollment so the next sign-in follows SMS OTP again.
   Future<void> resetMfaEnrollment() async {
     await _box.delete(kFirstLoginCompleted);
     await _box.delete(kMfaEnrolled);
     await _box.delete(kFirstOtp);
+    await _box.delete(kLoginSubmitCount);
+    await _box.flush();
   }
 
-  /// Full sign-out: same as reset for stored agent auth on this device.
   Future<void> clearAgentSession() async {
     await resetMfaEnrollment();
   }

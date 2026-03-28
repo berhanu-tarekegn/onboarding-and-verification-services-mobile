@@ -328,3 +328,207 @@ class _StepRow extends StatelessWidget {
     );
   }
 }
+
+// ─── Login screen: server challenge → success → agent workspace ───
+
+/// Non–first-time login: challenge pipeline on the login screen, then caller navigates (e.g. [AgentHomeScreen]).
+/// Middle step runs longer. Ends with the same success mark as [SuccessScreen].
+///
+/// [onFinished] runs after the sheet is dismissed — use the **caller's** [BuildContext] to navigate.
+Future<void> showLoginServerChallengeMfaSheet(
+  BuildContext context, {
+  required VoidCallback onFinished,
+}) {
+  return showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    isDismissible: false,
+    enableDrag: false,
+    backgroundColor: Colors.transparent,
+    barrierColor: Colors.black.withValues(alpha: 0.72),
+    builder: (ctx) => _LoginServerChallengeSheet(onFinished: onFinished),
+  );
+}
+
+class _LoginServerChallengeSheet extends StatefulWidget {
+  const _LoginServerChallengeSheet({required this.onFinished});
+
+  final VoidCallback onFinished;
+
+  @override
+  State<_LoginServerChallengeSheet> createState() =>
+      _LoginServerChallengeSheetState();
+}
+
+class _LoginServerChallengeSheetState extends State<_LoginServerChallengeSheet>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _pulse;
+  final List<_StepLine> _steps = [];
+  var _success = false;
+
+  static const _labels = [
+    'Accepting challenge from server',
+    'Solving challenge',
+    'Awaiting server response',
+  ];
+
+  /// First and third shorter; middle step is longest.
+  static const _delaysMs = [1000, 3200, 1100];
+
+  @override
+  void initState() {
+    super.initState();
+    _pulse = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2200),
+    )..repeat(reverse: true);
+    for (var i = 0; i < _labels.length; i++) {
+      _steps.add(
+        _StepLine(label: _labels[i], done: false, active: i == 0),
+      );
+    }
+    _runPipeline();
+  }
+
+  Future<void> _runPipeline() async {
+    for (var i = 0; i < _steps.length; i++) {
+      await Future<void>.delayed(Duration(milliseconds: _delaysMs[i]));
+      if (!mounted) return;
+      setState(() {
+        _steps[i].done = true;
+        _steps[i].active = false;
+        if (i + 1 < _steps.length) {
+          _steps[i + 1].active = true;
+        }
+      });
+    }
+    await Future<void>.delayed(const Duration(milliseconds: 450));
+    if (!mounted) return;
+    setState(() => _success = true);
+    await Future<void>.delayed(const Duration(milliseconds: 1600));
+    if (!mounted) return;
+    Navigator.of(context).pop();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onFinished();
+    });
+  }
+
+  @override
+  void dispose() {
+    _pulse.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bottom = MediaQuery.paddingOf(context).bottom;
+
+    return Padding(
+      padding: EdgeInsets.only(left: 12, right: 12, bottom: 8 + bottom),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(28),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  const Color(0xFF152238).withValues(alpha: 0.94),
+                  const Color(0xFF0D1B2A).withValues(alpha: 0.97),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(28),
+              border: Border.all(
+                color: FuturisticAuthTheme.cyanGlow.withValues(alpha: 0.35),
+                width: 1.2,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: FuturisticAuthTheme.accent.withValues(alpha: 0.12),
+                  blurRadius: 40,
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.fromLTRB(22, 26, 22, 22),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 380),
+              child: _success
+                  ? Column(
+                      key: const ValueKey('success'),
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.check_circle_outline,
+                          color: Colors.green,
+                          size: 100,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'MFA challenge verified',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white.withValues(alpha: 0.95),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Opening your agent workspace…',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.white.withValues(alpha: 0.5),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    )
+                  : Column(
+                      key: const ValueKey('pipeline'),
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _HeaderPulse(
+                          animation: _pulse,
+                          icon: Icons.gpp_maybe_rounded,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'SERVER CHALLENGE',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 3.2,
+                            color: FuturisticAuthTheme.accent.withValues(
+                              alpha: 0.95,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        ...List.generate(_steps.length, (i) {
+                          final s = _steps[i];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: _StepRow(line: s),
+                          );
+                        }),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Identity service issued a cryptographic challenge.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.white.withValues(alpha: 0.38),
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

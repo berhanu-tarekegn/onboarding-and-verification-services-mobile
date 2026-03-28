@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kifiya_rendering_engine_example/core/di/injection.dart';
+import 'package:kifiya_rendering_engine_example/passkey/agent_home_screen.dart';
 import 'package:kifiya_rendering_engine_example/passkey/futuristic_auth_theme.dart';
-import 'package:kifiya_rendering_engine_example/passkey/passkey_mfa_verify_screen.dart';
+import 'package:kifiya_rendering_engine_example/passkey/mfa_processing_bottom_sheet.dart';
 import 'package:kifiya_rendering_engine_example/passkey/passkey_otp_screen.dart';
 
 /// Sign-in: password → SMS OTP [first login only] or MFA handshake + code [after].
@@ -34,16 +35,36 @@ class _PasskeyLoginScreenState extends ConsumerState<PasskeyLoginScreen> {
     await Future<void>.delayed(const Duration(milliseconds: 1600));
     if (!mounted) return;
     setState(() => _signingIn = false);
-    final raw = _phoneCtrl.text.replaceAll(RegExp(r'\D'), '');
-    final firstLoginDone = ref
-        .read(agentAuthStorageProvider)
-        .hasCompletedFirstLogin;
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (context) => firstLoginDone
-            ? PasskeyMfaVerifyScreen(phoneDigits: raw)
-            : PasskeyOtpScreen(phoneDigits: raw),
-      ),
+
+    final storage = ref.read(agentAuthStorageProvider);
+    await storage.recordLoginSubmit();
+    final submitIndex = storage.loginSubmitCount;
+
+    // First Continue (submitIndex == 1) → SMS OTP only. Later submits → challenge sheet → agent home.
+    final bool firstSubmit = submitIndex == 1;
+
+    if (!mounted) return;
+    if (firstSubmit) {
+      final raw = _phoneCtrl.text.replaceAll(RegExp(r'\D'), '');
+      await Navigator.of(context).push<void>(
+        MaterialPageRoute<void>(
+          builder: (context) => PasskeyOtpScreen(phoneDigits: raw),
+        ),
+      );
+      return;
+    }
+
+    await showLoginServerChallengeMfaSheet(
+      context,
+      onFinished: () {
+        if (!context.mounted) return;
+        Navigator.of(context, rootNavigator: true).pushAndRemoveUntil<void>(
+          MaterialPageRoute<void>(
+            builder: (_) => const AgentHomeScreen(),
+          ),
+          (route) => route.isFirst,
+        );
+      },
     );
   }
 
