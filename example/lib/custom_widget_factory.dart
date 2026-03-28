@@ -6,14 +6,42 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kifiya_rendering_engine/src/builders/form_widget_factory.dart';
 import 'package:kifiya_rendering_engine/src/models/field_schema.dart';
 import 'package:kifiya_rendering_engine/src/models/form_schema.dart';
+import 'package:kifiya_rendering_engine_example/theme/futuristic_mesh_background.dart';
 
 /// Example custom widget factory demonstrating how to implement
 /// completely custom UI while the engine handles all the logic.
 ///
-/// This factory creates widgets with a custom purple theme and
-/// different visual styles to showcase the separation of UI and logic.
+/// Dark glass + cyan accent — aligned with landing, KYB shell, and success screen.
 class CustomWidgetFactory implements FormWidgetFactory {
   const CustomWidgetFactory();
+
+  static const _cyan = FuturisticMeshBackground.cyan;
+  static const _violet = FuturisticMeshBackground.violet;
+
+  static TextStyle get _labelStyle => TextStyle(
+        fontWeight: FontWeight.w600,
+        color: _cyan.withValues(alpha: 0.9),
+        fontSize: 13,
+        letterSpacing: 0.8,
+      );
+
+  static BoxDecoration get _fieldShell => BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.16)),
+        color: Colors.white.withValues(alpha: 0.05),
+        boxShadow: [
+          BoxShadow(
+            color: _cyan.withValues(alpha: 0.07),
+            blurRadius: 14,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      );
+
+  static TextStyle get _bodyLight => TextStyle(
+        color: Colors.white.withValues(alpha: 0.9),
+        fontSize: 15,
+      );
 
   @override
   Widget createTextField({
@@ -26,39 +54,38 @@ class CustomWidgetFactory implements FormWidgetFactory {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          field.label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 8),
+        Text(field.label, style: _labelStyle),
+        const SizedBox(height: 10),
         Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.deepPurple, width: 2),
-            borderRadius: BorderRadius.circular(12),
-          ),
+          decoration: _fieldShell,
           child: TextField(
             controller: TextEditingController(text: value)
               ..selection = TextSelection.fromPosition(
                 TextPosition(offset: value?.length ?? 0),
               ),
             onChanged: onChanged,
+            cursorColor: _cyan,
+            style: _bodyLight,
             decoration: InputDecoration(
               hintText: 'Enter ${field.label.toLowerCase()}',
+              hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.35)),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(16),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 16,
+              ),
             ),
           ),
         ),
         if (error != null)
           Padding(
-            padding: const EdgeInsets.only(top: 4, left: 4),
+            padding: const EdgeInsets.only(top: 6, left: 4),
             child: Text(
               error,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(
+                color: Colors.red.shade300,
+                fontSize: 12,
+              ),
             ),
           ),
       ],
@@ -75,10 +102,11 @@ class CustomWidgetFactory implements FormWidgetFactory {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.deepPurple.shade50,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
+        color: Colors.white.withValues(alpha: 0.04),
       ),
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -87,15 +115,14 @@ class CustomWidgetFactory implements FormWidgetFactory {
               Checkbox(
                 value: value ?? false,
                 onChanged: onChanged,
-                activeColor: Colors.deepPurple,
+                activeColor: _cyan,
+                checkColor: const Color(0xFF0a0f1a),
+                side: BorderSide(color: _cyan.withValues(alpha: 0.5)),
               ),
               Expanded(
                 child: Text(
                   field.label,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: _bodyLight.copyWith(fontWeight: FontWeight.w500),
                 ),
               ),
             ],
@@ -105,7 +132,7 @@ class CustomWidgetFactory implements FormWidgetFactory {
               padding: const EdgeInsets.only(left: 48),
               child: Text(
                 error,
-                style: const TextStyle(color: Colors.red, fontSize: 12),
+                style: TextStyle(color: Colors.red.shade300, fontSize: 12),
               ),
             ),
         ],
@@ -124,38 +151,37 @@ class CustomWidgetFactory implements FormWidgetFactory {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          field.label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 8),
+        Text(field.label, style: _labelStyle),
+        const SizedBox(height: 10),
         Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.deepPurple, width: 2),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: _fieldShell,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: DropdownButton<String>(
             value: value,
             isExpanded: true,
+            dropdownColor: const Color(0xFF141c2e),
             underline: const SizedBox(),
-            hint: Text('Select ${field.label.toLowerCase()}'),
+            iconEnabledColor: _cyan.withValues(alpha: 0.85),
+            style: _bodyLight,
+            hint: Text(
+              'Select ${field.label.toLowerCase()}',
+              style: TextStyle(color: Colors.white.withValues(alpha: 0.4)),
+            ),
             items: field.options?.map((option) {
-              return DropdownMenuItem(value: option, child: Text(option));
+              return DropdownMenuItem(
+                value: option,
+                child: Text(option, style: _bodyLight),
+              );
             }).toList(),
             onChanged: onChanged,
           ),
         ),
         if (error != null)
           Padding(
-            padding: const EdgeInsets.only(top: 4, left: 16),
+            padding: const EdgeInsets.only(top: 6, left: 4),
             child: Text(
               error,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: Colors.red.shade300, fontSize: 12),
             ),
           ),
       ],
@@ -176,19 +202,13 @@ class CustomWidgetFactory implements FormWidgetFactory {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          field.label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 8),
+        Text(field.label, style: _labelStyle),
+        const SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
-            color: Colors.deepPurple.shade50,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
+            color: Colors.white.withValues(alpha: 0.04),
           ),
           padding: const EdgeInsets.all(8),
           child: isInline
@@ -202,12 +222,17 @@ class CustomWidgetFactory implements FormWidgetFactory {
                               value: option,
                               groupValue: value,
                               onChanged: onChanged,
-                              activeColor: Colors.deepPurple,
+                              activeColor: _cyan,
+                              fillColor: WidgetStateProperty.resolveWith(
+                                (s) => s.contains(WidgetState.selected)
+                                    ? _cyan
+                                    : Colors.transparent,
+                              ),
                             ),
                             Expanded(
                               child: Text(
                                 option,
-                                style: const TextStyle(fontSize: 14),
+                                style: _bodyLight.copyWith(fontSize: 14),
                               ),
                             ),
                           ],
@@ -220,11 +245,16 @@ class CustomWidgetFactory implements FormWidgetFactory {
                   children: [
                     ...?field.options?.map((option) {
                       return RadioListTile<String>(
-                        title: Text(option),
+                        title: Text(option, style: _bodyLight.copyWith(fontSize: 14)),
                         value: option,
                         groupValue: value,
                         onChanged: onChanged,
-                        activeColor: Colors.deepPurple,
+                        activeColor: _cyan,
+                        fillColor: WidgetStateProperty.resolveWith(
+                          (s) => s.contains(WidgetState.selected)
+                              ? _cyan.withValues(alpha: 0.15)
+                              : Colors.transparent,
+                        ),
                       );
                     }),
                   ],
@@ -232,10 +262,10 @@ class CustomWidgetFactory implements FormWidgetFactory {
         ),
         if (error != null)
           Padding(
-            padding: const EdgeInsets.only(top: 4, left: 16),
+            padding: const EdgeInsets.only(top: 6, left: 4),
             child: Text(
               error,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: Colors.red.shade300, fontSize: 12),
             ),
           ),
       ],
@@ -253,15 +283,8 @@ class CustomWidgetFactory implements FormWidgetFactory {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          field.label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 8),
+        Text(field.label, style: _labelStyle),
+        const SizedBox(height: 10),
         InkWell(
           onTap: () async {
             final date = await showDatePicker(
@@ -269,28 +292,41 @@ class CustomWidgetFactory implements FormWidgetFactory {
               initialDate: value ?? DateTime.now(),
               firstDate: field.minDate ?? DateTime(1900),
               lastDate: field.maxDate ?? DateTime(2100),
+              builder: (context, child) {
+                return Theme(
+                  data: ThemeData.dark().copyWith(
+                    colorScheme: ColorScheme.dark(
+                      primary: _cyan,
+                      surface: const Color(0xFF141c2e),
+                      onSurface: Colors.white,
+                    ),
+                  ),
+                  child: child!,
+                );
+              },
             );
             if (date != null) {
               onChanged(date);
             }
           },
+          borderRadius: BorderRadius.circular(14),
           child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.deepPurple, width: 2),
-              borderRadius: BorderRadius.circular(12),
-            ),
+            decoration: _fieldShell,
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const Icon(Icons.calendar_today, color: Colors.deepPurple),
+                Icon(Icons.calendar_month_rounded, color: _cyan.withValues(alpha: 0.9)),
                 const SizedBox(width: 12),
-                Text(
-                  value != null
-                      ? '${value.day}/${value.month}/${value.year}'
-                      : 'Select date',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: value != null ? Colors.black : Colors.grey,
+                Expanded(
+                  child: Text(
+                    value != null
+                        ? '${value.day}/${value.month}/${value.year}'
+                        : 'Select date',
+                    style: _bodyLight.copyWith(
+                      color: value != null
+                          ? Colors.white.withValues(alpha: 0.92)
+                          : Colors.white.withValues(alpha: 0.4),
+                    ),
                   ),
                 ),
               ],
@@ -299,10 +335,10 @@ class CustomWidgetFactory implements FormWidgetFactory {
         ),
         if (error != null)
           Padding(
-            padding: const EdgeInsets.only(top: 4, left: 16),
+            padding: const EdgeInsets.only(top: 6, left: 4),
             child: Text(
               error,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: Colors.red.shade300, fontSize: 12),
             ),
           ),
       ],
@@ -323,52 +359,42 @@ class CustomWidgetFactory implements FormWidgetFactory {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          field.label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 8),
+        Text(field.label, style: _labelStyle),
+        const SizedBox(height: 10),
         Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.deepPurple, width: 2),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          padding: const EdgeInsets.all(16),
+          decoration: _fieldShell,
+          padding: const EdgeInsets.all(14),
           child: Row(
             children: [
-              const Icon(Icons.upload_file, color: Colors.deepPurple),
+              Icon(Icons.upload_file_rounded, color: _cyan.withValues(alpha: 0.85)),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   value ?? 'No file selected',
-                  style: TextStyle(
-                    color: value != null ? Colors.black : Colors.grey,
+                  style: _bodyLight.copyWith(
+                    color: value != null
+                        ? Colors.white.withValues(alpha: 0.9)
+                        : Colors.white.withValues(alpha: 0.4),
                   ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Simulate file selection
-                  onChanged('example_file.pdf');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
+              TextButton(
+                onPressed: () => onChanged('example_file.pdf'),
+                style: TextButton.styleFrom(
+                  foregroundColor: _cyan,
+                  side: BorderSide(color: _cyan.withValues(alpha: 0.45)),
                 ),
-                child: const Text('Choose File'),
+                child: const Text('Choose'),
               ),
             ],
           ),
         ),
         if (error != null)
           Padding(
-            padding: const EdgeInsets.only(top: 4, left: 16),
+            padding: const EdgeInsets.only(top: 6, left: 4),
             child: Text(
               error,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: Colors.red.shade300, fontSize: 12),
             ),
           ),
       ],
@@ -387,37 +413,33 @@ class CustomWidgetFactory implements FormWidgetFactory {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          field.label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 8),
+        Text(field.label, style: _labelStyle),
+        const SizedBox(height: 10),
         Container(
           height: 150,
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.deepPurple, width: 2),
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.16)),
+            color: Colors.white.withValues(alpha: 0.04),
           ),
           child: Center(
             child: Text(
               value != null ? 'Signature captured' : 'Tap to sign',
               style: TextStyle(
-                color: value != null ? Colors.deepPurple : Colors.grey,
+                color: value != null
+                    ? _cyan.withValues(alpha: 0.95)
+                    : Colors.white.withValues(alpha: 0.4),
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
         ),
         if (error != null)
           Padding(
-            padding: const EdgeInsets.only(top: 4, left: 16),
+            padding: const EdgeInsets.only(top: 6, left: 4),
             child: Text(
               error,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: Colors.red.shade300, fontSize: 12),
             ),
           ),
       ],
@@ -435,24 +457,19 @@ class CustomWidgetFactory implements FormWidgetFactory {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          field.label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 8),
+        Text(field.label, style: _labelStyle),
+        const SizedBox(height: 10),
         Container(
           height: 200,
           decoration: BoxDecoration(
             border: Border.all(
-              color: error != null ? Colors.red : Colors.deepPurple,
-              width: 2,
+              color: error != null
+                  ? Colors.red.shade400
+                  : Colors.white.withValues(alpha: 0.16),
+              width: 1.5,
             ),
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.deepPurple.shade50,
+            borderRadius: BorderRadius.circular(14),
+            color: Colors.white.withValues(alpha: 0.04),
           ),
           child: value != null && value.isNotEmpty
               ? Stack(
@@ -471,11 +488,11 @@ class CustomWidgetFactory implements FormWidgetFactory {
                       right: 8,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.deepPurple,
+                          color: _cyan.withValues(alpha: 0.9),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
-                          icon: const Icon(Icons.close, color: Colors.white),
+                          icon: const Icon(Icons.close, color: Color(0xFF0a0f1a)),
                           onPressed: () => onChanged(null),
                           tooltip: 'Remove image',
                         ),
@@ -523,17 +540,18 @@ class CustomWidgetFactory implements FormWidgetFactory {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.camera_alt,
-                          size: 64,
-                          color: Colors.deepPurple.shade300,
+                          Icons.camera_alt_rounded,
+                          size: 56,
+                          color: _cyan.withValues(alpha: 0.65),
                         ),
                         const SizedBox(height: 16),
                         Text(
                           'Tap to capture image',
                           style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.deepPurple.shade700,
+                            fontSize: 15,
+                            color: Colors.white.withValues(alpha: 0.55),
                             fontWeight: FontWeight.w500,
+                            letterSpacing: 0.3,
                           ),
                         ),
                       ],
@@ -543,10 +561,10 @@ class CustomWidgetFactory implements FormWidgetFactory {
         ),
         if (error != null)
           Padding(
-            padding: const EdgeInsets.only(top: 4, left: 16),
+            padding: const EdgeInsets.only(top: 6, left: 4),
             child: Text(
               error,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: Colors.red.shade300, fontSize: 12),
             ),
           ),
       ],
@@ -561,16 +579,20 @@ class CustomWidgetFactory implements FormWidgetFactory {
   }) {
     return Container(
       width: double.infinity,
-      height: 56,
+      height: 54,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Colors.deepPurple, Colors.purpleAccent],
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: _cyan.withValues(alpha: 0.45)),
+        gradient: LinearGradient(
+          colors: [
+            _cyan.withValues(alpha: 0.35),
+            _violet.withValues(alpha: 0.25),
+          ],
         ),
-        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.deepPurple.withOpacity(0.3),
-            blurRadius: 8,
+            color: _cyan.withValues(alpha: 0.2),
+            blurRadius: 16,
             offset: const Offset(0, 4),
           ),
         ],
@@ -581,14 +603,15 @@ class CustomWidgetFactory implements FormWidgetFactory {
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
         child: Text(
           isSubmitting ? 'Submitting...' : 'Submit Form',
           style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.2,
             color: Colors.white,
           ),
         ),
