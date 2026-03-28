@@ -6,6 +6,7 @@ import 'package:kifiya_rendering_engine_example/form_data_source.dart';
 import 'package:kifiya_rendering_engine_example/form_screen.dart';
 import 'package:kifiya_rendering_engine_example/form_session_providers.dart';
 import 'package:kifiya_rendering_engine_example/passkey/passkey_login_screen.dart';
+import 'package:kifiya_rendering_engine_example/widgets/app_logo.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -50,12 +51,13 @@ class HomeScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(height: topInset > 0 ? 8 : 24),
-                    Icon(
-                      Icons.auto_awesome_rounded,
-                      size: 48,
-                      color: Colors.white.withValues(alpha: 0.9),
+                    Center(
+                      child: AppLogo(
+                        size: (MediaQuery.sizeOf(context).shortestSide * 0.26)
+                            .clamp(88.0, 120.0),
+                      ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 28),
                     Text(
                       'Welcome to our smart onboarding mobile application',
                       textAlign: TextAlign.center,
@@ -87,7 +89,6 @@ class HomeScreen extends ConsumerWidget {
                     const Spacer(),
                     _LandingCTA(
                       label: 'Try as an agent',
-                      icon: Icons.badge_outlined,
                       filled: false,
                       onPressed: () {
                         Navigator.push<void>(
@@ -101,7 +102,6 @@ class HomeScreen extends ConsumerWidget {
                     const SizedBox(height: 14),
                     _LandingCTA(
                       label: 'Try as a user',
-                      icon: Icons.person_outline_rounded,
                       filled: true,
                       onPressed: () => _openUserOnboarding(context, ref),
                     ),
@@ -190,59 +190,40 @@ class _GlowBlob extends StatelessWidget {
 class _LandingCTA extends StatelessWidget {
   const _LandingCTA({
     required this.label,
-    required this.icon,
     required this.filled,
     required this.onPressed,
   });
 
   final String label;
-  final IconData icon;
   final bool filled;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     final radius = BorderRadius.circular(14);
+    final labelStyle = const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.2,
+    );
 
     if (filled) {
-      return FilledButton.icon(
+      return FilledButton(
         onPressed: onPressed,
-        icon: Icon(icon, size: 22),
-        label: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.2,
-            ),
-          ),
-        ),
         style: FilledButton.styleFrom(
           backgroundColor: HomeScreen._accent,
           foregroundColor: Colors.white,
           elevation: 0,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(borderRadius: radius),
+          padding: const EdgeInsets.symmetric(vertical: 14),
         ),
+        child: Text(label, style: labelStyle),
       );
     }
 
-    return OutlinedButton.icon(
+    return OutlinedButton(
       onPressed: onPressed,
-      icon: Icon(icon, size: 22),
-      label: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 14),
-        child: Text(
-          label,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.2,
-          ),
-        ),
-      ),
       style: OutlinedButton.styleFrom(
         foregroundColor: Colors.white,
         side: BorderSide(
@@ -251,7 +232,9 @@ class _LandingCTA extends StatelessWidget {
         ),
         backgroundColor: Colors.white.withValues(alpha: 0.06),
         shape: RoundedRectangleBorder(borderRadius: radius),
+        padding: const EdgeInsets.symmetric(vertical: 14),
       ),
+      child: Text(label, style: labelStyle),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kifiya_rendering_engine_example/core/di/injection.dart';
 import 'package:kifiya_rendering_engine_example/passkey/futuristic_auth_theme.dart';
+import 'package:kifiya_rendering_engine_example/widgets/app_logo.dart';
 
 /// Agent workspace after sign-in (OTP enrollment or MFA verification).
 class AgentHomeScreen extends ConsumerWidget {
@@ -29,25 +30,7 @@ class AgentHomeScreen extends ConsumerWidget {
                   children: [
                     Row(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            color: FuturisticAuthTheme.cyanGlow.withValues(
-                              alpha: 0.15,
-                            ),
-                            border: Border.all(
-                              color: FuturisticAuthTheme.cyanGlow.withValues(
-                                alpha: 0.35,
-                              ),
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.support_agent_rounded,
-                            color: Colors.white.withValues(alpha: 0.92),
-                            size: 26,
-                          ),
-                        ),
+                        const AppLogo(size: 48),
                         const SizedBox(width: 14),
                         Expanded(
                           child: Column(

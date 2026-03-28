@@ -5,6 +5,7 @@ import 'package:kifiya_rendering_engine_example/core/di/injection.dart';
 import 'package:kifiya_rendering_engine_example/passkey/futuristic_auth_theme.dart';
 import 'package:kifiya_rendering_engine_example/passkey/mfa_processing_bottom_sheet.dart';
 import 'package:kifiya_rendering_engine_example/passkey/agent_home_screen.dart';
+import 'package:kifiya_rendering_engine_example/widgets/app_logo.dart';
 
 /// Shown only when [AgentAuthStorage.hasCompletedFirstLogin] is false: SMS OTP → MFA enrollment sheet → workspace.
 class PasskeyOtpScreen extends ConsumerStatefulWidget {
@@ -134,25 +135,7 @@ class _PasskeyOtpScreenState extends ConsumerState<PasskeyOtpScreen> {
                     const SizedBox(height: 12),
                     Row(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(11),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            color: FuturisticAuthTheme.cyanGlow.withValues(
-                              alpha: 0.12,
-                            ),
-                            border: Border.all(
-                              color: FuturisticAuthTheme.cyanGlow.withValues(
-                                alpha: 0.35,
-                              ),
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.shield_moon_rounded,
-                            color: Colors.white.withValues(alpha: 0.92),
-                            size: 26,
-                          ),
-                        ),
+                        const AppLogo(size: 52),
                         const SizedBox(width: 14),
                         Expanded(
                           child: Column(

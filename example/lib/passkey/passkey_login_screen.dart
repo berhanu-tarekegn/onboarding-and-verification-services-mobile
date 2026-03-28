@@ -6,6 +6,7 @@ import 'package:kifiya_rendering_engine_example/passkey/agent_home_screen.dart';
 import 'package:kifiya_rendering_engine_example/passkey/futuristic_auth_theme.dart';
 import 'package:kifiya_rendering_engine_example/passkey/mfa_processing_bottom_sheet.dart';
 import 'package:kifiya_rendering_engine_example/passkey/passkey_otp_screen.dart';
+import 'package:kifiya_rendering_engine_example/widgets/app_logo.dart';
 
 /// Sign-in: password → SMS OTP [first login only] or MFA handshake + code [after].
 class PasskeyLoginScreen extends ConsumerStatefulWidget {
@@ -107,25 +108,7 @@ class _PasskeyLoginScreenState extends ConsumerState<PasskeyLoginScreen> {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: FuturisticAuthTheme.accent.withValues(
-                                alpha: 0.2,
-                              ),
-                              border: Border.all(
-                                color: FuturisticAuthTheme.cyanGlow.withValues(
-                                  alpha: 0.45,
-                                ),
-                              ),
-                            ),
-                            child: const Icon(
-                              Icons.lock_rounded,
-                              color: Colors.white,
-                              size: 28,
-                            ),
-                          ),
+                          const AppLogo(size: 52),
                           const SizedBox(width: 16),
                           Expanded(
                             child: Column(

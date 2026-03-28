@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.CAMERA" />
     <application
-        android:label="kifiya_rendering_engine_example"
+        android:label="Kifiya"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
