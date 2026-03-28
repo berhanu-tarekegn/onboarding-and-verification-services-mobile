@@ -1,0 +1,28 @@
+{
+    "title": "Step 4: Agreements",
+    "submitApiUrl": "https://api.example.com/step4",
+    "nextFormApiUrl": "assets/step_5.json",
+    "buttonColor": "0xFFFF9500",
+    "fields": [
+        {
+            "id": "terms_agree",
+            "type": "checkbox",
+            "label": "I agree to Terms",
+            "required": true,
+            "rowGroup": "agreements"
+        },
+        {
+            "id": "privacy_agree",
+            "type": "checkbox",
+            "label": "I agree to Privacy Policy",
+            "required": true,
+            "rowGroup": "agreements"
+        },
+        {
+            "id": "marketing_agree",
+            "type": "checkbox",
+            "label": "Subscribe to newsletter",
+            "required": false
+        }
+    ]
+}

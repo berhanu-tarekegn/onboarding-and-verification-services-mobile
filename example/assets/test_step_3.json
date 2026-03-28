@@ -1,0 +1,71 @@
+{
+    "title": "Test Step 3: Date Fields & Constraints",
+    "submitApiUrl": "https://api.test.com/step3",
+    "nextFormApiUrl": "assets/test_step_4.json",
+    "buttonColor": "0xFF9C27B0",
+    "fields": [
+        {
+            "id": "date_basic",
+            "type": "date",
+            "label": "Basic Date Picker",
+            "required": true
+        },
+        {
+            "id": "date_optional",
+            "type": "date",
+            "label": "Optional Date",
+            "required": false
+        },
+        {
+            "id": "date_format_dmy",
+            "type": "date",
+            "label": "Date (dd/MM/yyyy)",
+            "required": false,
+            "dateFormat": "dd/MM/yyyy"
+        },
+        {
+            "id": "date_format_mdy",
+            "type": "date",
+            "label": "Date (MM-dd-yyyy)",
+            "required": false,
+            "dateFormat": "MM-dd-yyyy"
+        },
+        {
+            "id": "date_format_full",
+            "type": "date",
+            "label": "Date (MMMM d, yyyy)",
+            "required": false,
+            "dateFormat": "MMMM d, yyyy"
+        },
+        {
+            "id": "date_min_only",
+            "type": "date",
+            "label": "Date with Min (2020-01-01)",
+            "required": false,
+            "minDate": "2020-01-01T00:00:00.000"
+        },
+        {
+            "id": "date_max_only",
+            "type": "date",
+            "label": "Date with Max (2025-12-31)",
+            "required": false,
+            "maxDate": "2025-12-31T00:00:00.000"
+        },
+        {
+            "id": "date_range",
+            "type": "date",
+            "label": "Date Range (2022-2024)",
+            "required": true,
+            "minDate": "2022-01-01T00:00:00.000",
+            "maxDate": "2024-12-31T00:00:00.000"
+        },
+        {
+            "id": "birth_date",
+            "type": "date",
+            "label": "Birth Date (18+ years)",
+            "required": true,
+            "maxDate": "2008-01-01T00:00:00.000",
+            "dateFormat": "yyyy-MM-dd"
+        }
+    ]
+}

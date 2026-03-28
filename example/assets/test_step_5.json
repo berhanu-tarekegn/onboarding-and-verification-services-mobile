@@ -1,0 +1,118 @@
+{
+    "title": "Test Step 5: Row Groups & Flex Layout",
+    "submitApiUrl": "https://api.test.com/step5",
+    "nextFormApiUrl": "assets/test_step_6.json",
+    "buttonColor": "0xFF00BCD4",
+    "fields": [
+        {
+            "id": "first_name",
+            "type": "text",
+            "label": "First Name",
+            "required": true,
+            "rowGroup": "name_row"
+        },
+        {
+            "id": "last_name",
+            "type": "text",
+            "label": "Last Name",
+            "required": true,
+            "rowGroup": "name_row"
+        },
+        {
+            "id": "city",
+            "type": "text",
+            "label": "City",
+            "required": false,
+            "rowGroup": "address_row",
+            "flex": 2
+        },
+        {
+            "id": "zip_code",
+            "type": "text",
+            "label": "ZIP",
+            "required": false,
+            "rowGroup": "address_row",
+            "flex": 1
+        },
+        {
+            "id": "col1",
+            "type": "text",
+            "label": "Column 1",
+            "required": false,
+            "rowGroup": "three_col"
+        },
+        {
+            "id": "col2",
+            "type": "text",
+            "label": "Column 2",
+            "required": false,
+            "rowGroup": "three_col"
+        },
+        {
+            "id": "col3",
+            "type": "text",
+            "label": "Column 3",
+            "required": false,
+            "rowGroup": "three_col"
+        },
+        {
+            "id": "flex_small",
+            "type": "text",
+            "label": "Small (flex: 0.5)",
+            "required": false,
+            "rowGroup": "flex_test",
+            "flex": 0.5
+        },
+        {
+            "id": "flex_medium",
+            "type": "text",
+            "label": "Medium (flex: 1)",
+            "required": false,
+            "rowGroup": "flex_test",
+            "flex": 1
+        },
+        {
+            "id": "flex_large",
+            "type": "text",
+            "label": "Large (flex: 2)",
+            "required": false,
+            "rowGroup": "flex_test",
+            "flex": 2
+        },
+        {
+            "id": "checkbox_inline_1",
+            "type": "checkbox",
+            "label": "Option A",
+            "required": false,
+            "rowGroup": "checkbox_row"
+        },
+        {
+            "id": "checkbox_inline_2",
+            "type": "checkbox",
+            "label": "Option B",
+            "required": false,
+            "rowGroup": "checkbox_row"
+        },
+        {
+            "id": "full_width_after",
+            "type": "text",
+            "label": "Full Width Field After Row Group",
+            "required": false,
+            "startNewRow": true
+        },
+        {
+            "id": "date_inline_1",
+            "type": "date",
+            "label": "Start Date",
+            "required": false,
+            "rowGroup": "date_row"
+        },
+        {
+            "id": "date_inline_2",
+            "type": "date",
+            "label": "End Date",
+            "required": false,
+            "rowGroup": "date_row"
+        }
+    ]
+}

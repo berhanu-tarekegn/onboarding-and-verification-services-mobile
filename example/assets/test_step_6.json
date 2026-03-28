@@ -1,0 +1,39 @@
+{
+    "title": "Test Step 6: File Uploads (Non-Sequential)",
+    "submitApiUrl": "https://api.test.com/step6",
+    "nextFormApiUrl": "assets/test_step_7.json",
+    "buttonColor": "0xFFE91E63",
+    "sequentialFileUpload": false,
+    "fields": [
+        {
+            "id": "file_required",
+            "type": "fileUpload",
+            "label": "Required Document",
+            "required": true
+        },
+        {
+            "id": "file_optional",
+            "type": "fileUpload",
+            "label": "Optional Document",
+            "required": false
+        },
+        {
+            "id": "profile_photo",
+            "type": "fileUpload",
+            "label": "Profile Photo",
+            "required": false
+        },
+        {
+            "id": "id_front",
+            "type": "fileUpload",
+            "label": "ID Card (Front)",
+            "required": true
+        },
+        {
+            "id": "id_back",
+            "type": "fileUpload",
+            "label": "ID Card (Back)",
+            "required": true
+        }
+    ]
+}

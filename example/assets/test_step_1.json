@@ -1,0 +1,63 @@
+{
+    "title": "Test Step 1: Text Fields & Keyboard Types",
+    "submitApiUrl": "https://api.test.com/step1",
+    "nextFormApiUrl": "assets/test_step_2.json",
+    "buttonColor": "0xFF4CAF50",
+    "fields": [
+        {
+            "id": "text_basic",
+            "type": "text",
+            "label": "Basic Text Field",
+            "required": true
+        },
+        {
+            "id": "text_optional",
+            "type": "text",
+            "label": "Optional Text Field",
+            "required": false
+        },
+        {
+            "id": "text_default",
+            "type": "text",
+            "label": "Text with Default Value",
+            "required": false,
+            "defaultValue": "Pre-filled text"
+        },
+        {
+            "id": "text_email",
+            "type": "text",
+            "label": "Email Field",
+            "required": true,
+            "keyboardType": "email",
+            "regex": "^[\\w.-]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+        },
+        {
+            "id": "text_phone",
+            "type": "text",
+            "label": "Phone Number",
+            "required": true,
+            "keyboardType": "phone",
+            "regex": "^[0-9]{9,15}$"
+        },
+        {
+            "id": "text_number",
+            "type": "text",
+            "label": "Numeric Input",
+            "required": false,
+            "keyboardType": "number"
+        },
+        {
+            "id": "text_regex_alpha",
+            "type": "text",
+            "label": "Letters Only (A-Z)",
+            "required": true,
+            "regex": "^[A-Za-z]+$"
+        },
+        {
+            "id": "text_long_label",
+            "type": "text",
+            "label": "This is a very long label that should wrap properly and not break the layout of the form",
+            "required": false
+        }
+    ]
+}

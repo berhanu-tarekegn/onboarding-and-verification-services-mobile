@@ -1,0 +1,22 @@
+{
+  "title": "RuSACCO Bank Information",
+  "submitApiUrl": "https://api.example.com/forms/rusacco/step3",
+  "nextFormApiUrl": "",
+  "buttonColor": "0xFF6C63FF",
+  "fields": [
+    {
+      "id": "bank_account_number",
+      "type": "text",
+      "label": "RuSACCO Bank Account Number",
+      "required": true,
+      "regex": "^[0-9]{6,20}$",
+      "keyboardType": "number"
+    },
+    {
+      "id": "bank_name",
+      "type": "text",
+      "label": "Bank Name",
+      "required": true
+    }
+  ]
+}

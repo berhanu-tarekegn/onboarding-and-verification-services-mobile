@@ -1,0 +1,30 @@
+{
+    "title": "Fayda Information",
+    "submitApiUrl": "https://api.example.com/fayda-step-1",
+    "nextFormApiUrl": "assets/fayda_step_2.json",
+    "buttonColor": "0xFF00796B",
+    "fields": [
+        {
+            "id": "fayda_region",
+            "type": "dropdown",
+            "label": "Region",
+            "required": true,
+            "options": [
+                "Addis Ababa",
+                "Amhara",
+                "Oromia",
+                "Tigray",
+                "Sidama",
+                "Somali",
+                "Afar"
+            ]
+        },
+        {
+            "id": "fayda_alias_number",
+            "type": "text",
+            "label": "Fayda Alias Number (FAN)",
+            "required": true,
+            "keyboardType": "number"
+        }
+    ]
+}

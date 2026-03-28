@@ -1,0 +1,132 @@
+{
+    "title": "Test Step 2: Dropdowns & Radio Buttons",
+    "submitApiUrl": "https://api.test.com/step2",
+    "nextFormApiUrl": "assets/test_step_3.json",
+    "buttonColor": "0xFF2196F3",
+    "fields": [
+        {
+            "id": "dropdown_basic",
+            "type": "dropdown",
+            "label": "Basic Dropdown",
+            "required": true,
+            "options": [
+                "Option A",
+                "Option B",
+                "Option C"
+            ]
+        },
+        {
+            "id": "dropdown_optional",
+            "type": "dropdown",
+            "label": "Optional Dropdown",
+            "required": false,
+            "options": [
+                "Choice 1",
+                "Choice 2"
+            ]
+        },
+        {
+            "id": "dropdown_default",
+            "type": "dropdown",
+            "label": "Dropdown with Default",
+            "required": false,
+            "defaultValue": "Selected",
+            "options": [
+                "Not Selected",
+                "Selected",
+                "Other"
+            ]
+        },
+        {
+            "id": "dropdown_many",
+            "type": "dropdown",
+            "label": "Many Options (20+)",
+            "required": false,
+            "options": [
+                "Item 1",
+                "Item 2",
+                "Item 3",
+                "Item 4",
+                "Item 5",
+                "Item 6",
+                "Item 7",
+                "Item 8",
+                "Item 9",
+                "Item 10",
+                "Item 11",
+                "Item 12",
+                "Item 13",
+                "Item 14",
+                "Item 15",
+                "Item 16",
+                "Item 17",
+                "Item 18",
+                "Item 19",
+                "Item 20",
+                "Item 21",
+                "Item 22",
+                "Item 23",
+                "Item 24",
+                "Item 25"
+            ]
+        },
+        {
+            "id": "dropdown_long_options",
+            "type": "dropdown",
+            "label": "Long Option Text",
+            "required": false,
+            "options": [
+                "This is a very long option text that should be handled properly",
+                "Another extremely long option to test text overflow behavior",
+                "Short"
+            ]
+        },
+        {
+            "id": "radio_basic",
+            "type": "radio",
+            "label": "Basic Radio Group",
+            "required": true,
+            "options": [
+                "Yes",
+                "No",
+                "Maybe"
+            ]
+        },
+        {
+            "id": "radio_optional",
+            "type": "radio",
+            "label": "Optional Radio",
+            "required": false,
+            "options": [
+                "Agree",
+                "Disagree"
+            ]
+        },
+        {
+            "id": "radio_default",
+            "type": "radio",
+            "label": "Radio with Default",
+            "required": false,
+            "defaultValue": "Medium",
+            "options": [
+                "Low",
+                "Medium",
+                "High"
+            ]
+        },
+        {
+            "id": "radio_many",
+            "type": "radio",
+            "label": "Many Radio Options",
+            "required": false,
+            "options": [
+                "Option 1",
+                "Option 2",
+                "Option 3",
+                "Option 4",
+                "Option 5",
+                "Option 6"
+            ]
+        }
+    ]
+}

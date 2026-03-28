@@ -1,0 +1,237 @@
+{
+    "step1": {
+        "title": "Fayda Information",
+        "submitApiUrl": "https://api.example.com/fayda-step-1",
+        "nextFormApiUrl": "assets/fayda_step_2.json",
+        "buttonColor": "0xFF00796B",
+        "fields": [
+            {
+                "id": "fayda_region",
+                "type": "dropdown",
+                "label": "Region",
+                "required": true,
+                "options": [
+                    "Addis Ababa",
+                    "Amhara",
+                    "Oromia",
+                    "Tigray",
+                    "Sidama",
+                    "Somali",
+                    "Afar"
+                ]
+            },
+            {
+                "id": "fayda_alias_number",
+                "type": "text",
+                "label": "Fayda Alias Number (FAN)",
+                "required": true,
+                "keyboardType": "number"
+            }
+        ]
+    },
+    "step2": {
+        "title": "Personal Information",
+        "submitApiUrl": "https://api.example.com/fayda-step-2",
+        "nextFormApiUrl": "assets/fayda_step_3.json",
+        "buttonColor": "0xFF00796B",
+        "fields": [
+            {
+                "id": "first_name",
+                "type": "text",
+                "label": "First Name",
+                "required": true
+            },
+            {
+                "id": "middle_name",
+                "type": "text",
+                "label": "Middle Name",
+                "required": true
+            },
+            {
+                "id": "last_name",
+                "type": "text",
+                "label": "Last Name",
+                "required": true
+            },
+            {
+                "id": "mother_name",
+                "type": "text",
+                "label": "Mother's Name",
+                "required": true
+            },
+            {
+                "id": "birthdate",
+                "type": "date",
+                "label": "Birthdate",
+                "required": true
+            },
+            {
+                "id": "gender",
+                "type": "radio",
+                "label": "Gender",
+                "properties": {
+                    "inline": true
+                },
+                "required": true,
+                "options": [
+                    "Female",
+                    "Male"
+                ]
+            },
+            {
+                "id": "marital_status",
+                "type": "dropdown",
+                "label": "Marital Status",
+                "required": true,
+                "options": [
+                    "Single",
+                    "Married",
+                    "Divorced",
+                    "Widowed"
+                ]
+            },
+            {
+                "id": "phone_number",
+                "type": "text",
+                "label": "Phone Number",
+                "required": true,
+                "keyboardType": "phone",
+                "regex": "^\\+251[0-9]{9}$"
+            },
+            {
+                "id": "nationality",
+                "type": "dropdown",
+                "label": "Nationality",
+                "required": true,
+                "options": [
+                    "Ethiopia",
+                    "Kenya",
+                    "Sudan",
+                    "Eritrea",
+                    "Djibouti",
+                    "Somalia"
+                ]
+            },
+            {
+                "id": "language_preference",
+                "type": "dropdown",
+                "label": "Language Preference",
+                "required": true,
+                "options": [
+                    "Amharic",
+                    "Oromiffa",
+                    "Tigrinya",
+                    "English"
+                ]
+            },
+            {
+                "id": "education_level",
+                "type": "dropdown",
+                "label": "Education Level",
+                "required": true,
+                "options": [
+                    "Primary",
+                    "Secondary",
+                    "Diploma",
+                    "Bachelor",
+                    "Master",
+                    "PhD"
+                ]
+            }
+        ]
+    },
+    "step3": {
+        "title": "Address Information",
+        "submitApiUrl": "https://api.example.com/fayda-step-3",
+        "nextFormApiUrl": "assets/fayda_step_4.json",
+        "buttonColor": "0xFF00796B",
+        "fields": [
+            {
+                "id": "address_region",
+                "type": "text",
+                "label": "Region",
+                "required": true
+            },
+            {
+                "id": "zone",
+                "type": "text",
+                "label": "Sub-city/Zone",
+                "required": true
+            },
+            {
+                "id": "woreda",
+                "type": "text",
+                "label": "Woreda",
+                "required": true
+            },
+            {
+                "id": "city",
+                "type": "dropdown",
+                "label": "City",
+                "required": true,
+                "options": [
+                    "Addis Ababa",
+                    "Adama",
+                    "Bahir Dar",
+                    "Hawassa",
+                    "Mekelle",
+                    "Dire Dawa"
+                ]
+            },
+            {
+                "id": "kebele",
+                "type": "dropdown",
+                "label": "Kebele",
+                "required": true,
+                "options": [
+                    "01",
+                    "02",
+                    "03",
+                    "04",
+                    "05"
+                ]
+            },
+            {
+                "id": "house_number",
+                "type": "text",
+                "label": "House Number",
+                "required": true
+            }
+        ]
+    },
+    "step4": {
+        "title": "Emergency Contact",
+        "submitApiUrl": "https://api.example.com/fayda-step-4",
+        "nextFormApiUrl": "",
+        "buttonColor": "0xFF00796B",
+        "fields": [
+            {
+                "id": "emergency_name",
+                "type": "text",
+                "label": "Emergency Contact Name",
+                "required": true
+            },
+            {
+                "id": "emergency_number",
+                "type": "text",
+                "label": "Emergency Contact Number",
+                "required": true,
+                "keyboardType": "phone"
+            },
+            {
+                "id": "emergency_relationship",
+                "type": "dropdown",
+                "label": "Relationship to Emergency Contact",
+                "required": true,
+                "options": [
+                    "Spouse",
+                    "Parent",
+                    "Sibling",
+                    "Child",
+                    "Friend",
+                    "Other"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "title": "Test Step 8: Signature Fields",
+    "submitApiUrl": "https://api.test.com/step8",
+    "nextFormApiUrl": "assets/test_step_9.json",
+    "buttonColor": "0xFF795548",
+    "fields": [
+        {
+            "id": "signature_required",
+            "type": "signature",
+            "label": "Applicant Signature (Required)",
+            "required": true
+        },
+        {
+            "id": "signature_optional",
+            "type": "signature",
+            "label": "Witness Signature (Optional)",
+            "required": false
+        },
+        {
+            "id": "initials",
+            "type": "signature",
+            "label": "Initials",
+            "required": false
+        }
+    ]
+}

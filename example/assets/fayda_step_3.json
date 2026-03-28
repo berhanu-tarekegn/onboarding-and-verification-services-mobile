@@ -1,0 +1,59 @@
+{
+    "title": "Address Information",
+    "submitApiUrl": "https://api.example.com/fayda-step-3",
+    "nextFormApiUrl": "assets/fayda_step_4.json",
+    "buttonColor": "0xFF00796B",
+    "fields": [
+        {
+            "id": "address_region",
+            "type": "text",
+            "label": "Region",
+            "required": true
+        },
+        {
+            "id": "zone",
+            "type": "text",
+            "label": "Sub-city/Zone",
+            "required": true
+        },
+        {
+            "id": "woreda",
+            "type": "text",
+            "label": "Woreda",
+            "required": true
+        },
+        {
+            "id": "city",
+            "type": "dropdown",
+            "label": "City",
+            "required": true,
+            "options": [
+                "Addis Ababa",
+                "Adama",
+                "Bahir Dar",
+                "Hawassa",
+                "Mekelle",
+                "Dire Dawa"
+            ]
+        },
+        {
+            "id": "kebele",
+            "type": "dropdown",
+            "label": "Kebele",
+            "required": true,
+            "options": [
+                "01",
+                "02",
+                "03",
+                "04",
+                "05"
+            ]
+        },
+        {
+            "id": "house_number",
+            "type": "text",
+            "label": "House Number",
+            "required": true
+        }
+    ]
+}

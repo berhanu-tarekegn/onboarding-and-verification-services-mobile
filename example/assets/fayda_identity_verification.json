@@ -1,0 +1,34 @@
+{
+    "title": "Identity Verification",
+    "submitApiUrl": "https://api.example.com/fayda-identity",
+    "nextFormApiUrl": "assets/fayda_step_2.json",
+    "buttonColor": "0xFF00796B",
+    "sequentialFileUpload": false,
+    "fields": [
+        {
+            "id": "id_type",
+            "type": "radio",
+            "label": "Select ID Type",
+            "required": true,
+            "properties": {
+                "inline": true
+            },
+            "options": [
+                "National ID",
+                "Driver License"
+            ]
+        },
+        {
+            "id": "id_photo",
+            "type": "imageCapture",
+            "label": "Capture ID Photo",
+            "required": true,
+            "dependsOn": "id_type",
+            "visibleWhenEquals": [
+                "National ID",
+                "Driver License"
+            ]
+        }
+
+    ]
+}

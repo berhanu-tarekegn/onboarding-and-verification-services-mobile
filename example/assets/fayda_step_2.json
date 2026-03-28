@@ -1,0 +1,111 @@
+{
+    "title": "Personal Information",
+    "submitApiUrl": "https://api.example.com/fayda-step-2",
+    "nextFormApiUrl": "assets/fayda_step_3.json",
+    "buttonColor": "0xFF00796B",
+    "fields": [
+        {
+            "id": "first_name",
+            "type": "text",
+            "label": "First Name",
+            "required": true
+        },
+        {
+            "id": "middle_name",
+            "type": "text",
+            "label": "Middle Name",
+            "required": true
+        },
+        {
+            "id": "last_name",
+            "type": "text",
+            "label": "Last Name",
+            "required": true
+        },
+        {
+            "id": "mother_name",
+            "type": "text",
+            "label": "Mother's Name",
+            "required": true
+        },
+        {
+            "id": "birthdate",
+            "type": "date",
+            "label": "Birthdate",
+            "required": true
+        },
+        {
+            "id": "gender",
+            "type": "radio",
+            "label": "Gender",
+            "properties": {
+                "inline": true
+            },
+            "required": true,
+            "options": [
+                "Female",
+                "Male"
+            ]
+        },
+        {
+            "id": "marital_status",
+            "type": "dropdown",
+            "label": "Marital Status",
+            "required": true,
+            "options": [
+                "Single",
+                "Married",
+                "Divorced",
+                "Widowed"
+            ]
+        },
+        {
+            "id": "phone_number",
+            "type": "text",
+            "label": "Phone Number",
+            "required": true,
+            "keyboardType": "phone",
+            "regex": "^\\+251[0-9]{9}$"
+        },
+        {
+            "id": "nationality",
+            "type": "dropdown",
+            "label": "Nationality",
+            "required": true,
+            "options": [
+                "Ethiopia",
+                "Kenya",
+                "Sudan",
+                "Eritrea",
+                "Djibouti",
+                "Somalia"
+            ]
+        },
+        {
+            "id": "language_preference",
+            "type": "dropdown",
+            "label": "Language Preference",
+            "required": true,
+            "options": [
+                "Amharic",
+                "Oromiffa",
+                "Tigrinya",
+                "English"
+            ]
+        },
+        {
+            "id": "education_level",
+            "type": "dropdown",
+            "label": "Education Level",
+            "required": true,
+            "options": [
+                "Primary",
+                "Secondary",
+                "Diploma",
+                "Bachelor",
+                "Master",
+                "PhD"
+            ]
+        }
+    ]
+}

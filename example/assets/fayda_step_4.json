@@ -1,0 +1,35 @@
+{
+    "title": "Emergency Contact",
+    "submitApiUrl": "https://api.example.com/fayda-step-4",
+    "nextFormApiUrl": "assets/step_5.json",
+    "buttonColor": "0xFF00796B",
+    "fields": [
+        {
+            "id": "emergency_name",
+            "type": "text",
+            "label": "Emergency Contact Name",
+            "required": true
+        },
+        {
+            "id": "emergency_number",
+            "type": "text",
+            "label": "Emergency Contact Number",
+            "required": true,
+            "keyboardType": "phone"
+        },
+        {
+            "id": "emergency_relationship",
+            "type": "dropdown",
+            "label": "Relationship to Emergency Contact",
+            "required": true,
+            "options": [
+                "Spouse",
+                "Parent",
+                "Sibling",
+                "Child",
+                "Friend",
+                "Other"
+            ]
+        }
+    ]
+}

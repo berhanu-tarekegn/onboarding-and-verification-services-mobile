@@ -1,0 +1,36 @@
+{
+    "title": "Step 2: Contact Details",
+    "submitApiUrl": "https://api.example.com/step2",
+    "nextFormApiUrl": "assets/step_3.json",
+    "buttonColor": "0xFF28A745",
+    "fields": [
+        {
+            "id": "phone",
+            "type": "text",
+            "label": "Phone Number",
+            "required": true,
+            "keyboardType": "phone",
+            "regex": "^[0-9]{9,15}$"
+        },
+        {
+            "id": "country",
+            "type": "dropdown",
+            "label": "Country",
+            "required": true,
+            "options": [
+                "Ethiopia",
+                "Kenya",
+                "Uganda",
+                "Tanzania",
+                "Rwanda",
+                "Other"
+            ]
+        },
+        {
+            "id": "city",
+            "type": "text",
+            "label": "City",
+            "required": true
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "title": "Step 3: Preferences",
+    "submitApiUrl": "https://api.example.com/step3",
+    "nextFormApiUrl": "assets/step_4.json",
+    "buttonColor": "0xFF6C63FF",
+    "fields": [
+        {
+            "id": "notification_type",
+            "type": "radio",
+            "label": "Preferred Notification",
+            "required": true,
+            "options": [
+                "Email",
+                "SMS",
+                "Push Notification",
+                "None"
+            ]
+        },
+        {
+            "id": "birth_date",
+            "type": "date",
+            "label": "Date of Birth",
+            "required": true,
+            "dateFormat": "yyyy-MM-dd",
+            "minDate": "1950-01-01T00:00:00.000",
+            "maxDate": "2010-12-31T00:00:00.000"
+        }
+    ]
+}

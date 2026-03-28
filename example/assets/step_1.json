@@ -1,0 +1,30 @@
+{
+    "title": "Step 1: Personal Info",
+    "submitApiUrl": "https://api.example.com/step1",
+    "nextFormApiUrl": "assets/step_2.json",
+    "buttonColor": "0xFF007AFF",
+    "fields": [
+        {
+            "id": "first_name",
+            "type": "text",
+            "label": "First Name",
+            "required": true,
+            "rowGroup": "name"
+        },
+        {
+            "id": "last_name",
+            "type": "text",
+            "label": "Last Name",
+            "required": true,
+            "rowGroup": "name"
+        },
+        {
+            "id": "email",
+            "type": "text",
+            "label": "Email Address",
+            "required": true,
+            "keyboardType": "email",
+            "regex": "^[\\w.-]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+        }
+    ]
+}

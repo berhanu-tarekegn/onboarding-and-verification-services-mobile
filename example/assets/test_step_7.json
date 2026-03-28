@@ -1,0 +1,39 @@
+{
+    "title": "Test Step 7: Sequential File Uploads",
+    "submitApiUrl": "https://api.test.com/step7",
+    "nextFormApiUrl": "assets/test_step_8.json",
+    "buttonColor": "0xFF673AB7",
+    "sequentialFileUpload": true,
+    "fields": [
+        {
+            "id": "passport",
+            "type": "fileUpload",
+            "label": "Step 1: Passport (Required)",
+            "required": true
+        },
+        {
+            "id": "visa",
+            "type": "fileUpload",
+            "label": "Step 2: Visa Document",
+            "required": false
+        },
+        {
+            "id": "proof_of_address",
+            "type": "fileUpload",
+            "label": "Step 3: Proof of Address",
+            "required": true
+        },
+        {
+            "id": "bank_statement",
+            "type": "fileUpload",
+            "label": "Step 4: Bank Statement",
+            "required": false
+        },
+        {
+            "id": "additional_doc",
+            "type": "fileUpload",
+            "label": "Step 5: Additional Document",
+            "required": false
+        }
+    ]
+}

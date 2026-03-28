@@ -1,0 +1,29 @@
+{
+  "title": "RuSACCO Membership Details",
+  "submitApiUrl": "https://api.example.com/forms/rusacco/step2",
+  "nextFormApiUrl": "assets/form_three.json",
+  "buttonColor": "0xFF28A745",
+  "fields": [
+    {
+      "id": "members_male",
+      "type": "text",
+      "label": "Number of Male Members",
+      "required": true,
+      "keyboardType": "number"
+    },
+    {
+      "id": "members_female",
+      "type": "text",
+      "label": "Number of Female Members",
+      "required": true,
+      "keyboardType": "number"
+    },
+    {
+      "id": "members_total",
+      "type": "text",
+      "label": "Total Members",
+      "required": true,
+      "keyboardType": "number"
+    }
+  ]
+}

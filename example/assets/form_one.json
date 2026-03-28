@@ -1,0 +1,116 @@
+{
+  "title": "RuSACCO Basic Information Form",
+  "submitApiUrl": "https://api.example.com/forms/rusacco/step1",
+  "nextFormApiUrl": "assets/form_two.json",
+  "buttonColor": "0xFF007AFF",
+  "fields": [
+    {
+      "id": "region",
+      "type": "dropdown",
+      "label": "Region",
+      "required": true,
+      "options": [
+        "Oromia",
+        "Amhara",
+        "Tigray",
+        "Afar",
+        "Benishangul Gumuz",
+        "South Ethiopia",
+        "Central Ethiopia",
+        "Southwest Ethiopia",
+        "Gambella",
+        "Sidama"
+      ]
+    },
+    { "id": "zone", "type": "text", "label": "Zone", "required": true },
+    { "id": "woreda", "type": "text", "label": "Woreda", "required": true },
+    { "id": "kebele", "type": "text", "label": "Kebele", "required": true },
+    { "id": "rusacco_name", "type": "text", "label": "RuSACCO Name", "required": true },
+    {
+      "id": "chair_person",
+      "type": "text",
+      "label": "RuSACCO Chairperson Name / Phone No.",
+      "required": true
+    },
+    {
+      "id": "deputy_chair",
+      "type": "text",
+      "label": "RuSACCO Deputy Chair Name / Phone No.",
+      "required": false
+    },
+    {
+      "id": "secretary",
+      "type": "text",
+      "label": "RuSACCO Secretary Name / Phone No.",
+      "required": false
+    },
+    {
+      "id": "rusacco_union_name",
+      "type": "text",
+      "label": "RuSACCO Union Name (if applicable)",
+      "required": false
+    },
+    {
+      "id": "rusacco_union_manager",
+      "type": "text",
+      "label": "RuSACCO Union Manager Name / Phone No.",
+      "required": false
+    },
+    {
+      "id": "rusacco_agent_name",
+      "type": "text",
+      "label": "RuSACCO / MPC Agent Name",
+      "required": true
+    },
+    {
+      "id": "rusacco_agent_phone",
+      "type": "text",
+      "label": "RuSACCO / MPC Agent Phone",
+      "required": true,
+      "regex": "^[0-9]{9,15}$",
+      "keyboardType": "phone"
+    },
+    {
+      "id": "rusacco_agent_email",
+      "type": "text",
+      "label": "RuSACCO / MPC Agent Email",
+      "required": false,
+      "regex": "^[\\w.-]+@([\\w-]+\\.)+[\\w-]{2,4}$",
+      "keyboardType": "email"
+    },
+    {
+      "id": "nearest_bank_branch",
+      "type": "text",
+      "label": "Nearest Bank Branch",
+      "required": true
+    },
+    {
+      "id": "bank_branch_manager",
+      "type": "text",
+      "label": "Bank Branch Manager Name",
+      "required": true
+    },
+    {
+      "id": "bank_branch_manager_phone",
+      "type": "text",
+      "label": "Bank Branch Manager Phone",
+      "required": true,
+      "regex": "^[0-9]{9,15}$",
+      "keyboardType": "phone"
+    },
+    {
+      "id": "bde_name",
+      "type": "text",
+      "label": "Appointed BDE Name",
+      "required": true
+    },
+    {
+      "id": "bde_phone",
+      "type": "text",
+      "label": "BDE Phone No.",
+      "required": true,
+      "regex": "^[0-9]{9,15}$",
+      "keyboardType": "phone"
+    }
+  ]
+}

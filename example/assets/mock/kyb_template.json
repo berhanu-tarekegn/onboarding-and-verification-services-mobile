@@ -1,0 +1,179 @@
+{
+  "name": "KYB (Business) Standard - Level 1",
+  "description": "Basic KYB baseline for low-risk business onboarding.",
+  "category": "kyb",
+  "template_type": "kyb",
+  "level": 1,
+  "initial_version": {
+    "version_tag": "1.0.0",
+    "changelog": "Initial Level 1 KYB baseline",
+    "rules_config": {
+      "risk_tier": "basic_business_info",
+      "verification_methods": []
+    },
+    "question_groups": [
+      {
+        "unique_key": "business_identity",
+        "title": "Business Identity",
+        "display_order": 1,
+        "questions": [
+          {
+            "unique_key": "business_name",
+            "label": "Business Name",
+            "field_type": "text",
+            "required": true,
+            "display_order": 1,
+            "rules": {
+              "min_length": 2,
+              "max_length": 150
+            }
+          },
+          {
+            "unique_key": "registration_number",
+            "label": "Registration Number",
+            "field_type": "text",
+            "required": true,
+            "display_order": 2,
+            "rules": {
+              "validation_profile": "country_specific_business_registration"
+            }
+          },
+          {
+            "unique_key": "country_of_incorporation",
+            "label": "Country of Incorporation",
+            "field_type": "dropdown",
+            "required": true,
+            "display_order": 3,
+            "rules": {
+              "options_source": "iso_countries"
+            }
+          },
+          {
+            "unique_key": "business_type",
+            "label": "Business Type",
+            "field_type": "dropdown",
+            "required": true,
+            "display_order": 4,
+            "options": [
+              {
+                "value": "llc",
+                "display_order": 1
+              },
+              {
+                "value": "plc",
+                "display_order": 2
+              },
+              {
+                "value": "sole_proprietorship",
+                "display_order": 3
+              },
+              {
+                "value": "partnership",
+                "display_order": 4
+              },
+              {
+                "value": "ngo",
+                "display_order": 5
+              },
+              {
+                "value": "other",
+                "display_order": 6
+              }
+            ]
+          },
+          {
+            "unique_key": "business_address",
+            "label": "Address",
+            "field_type": "text",
+            "required": true,
+            "display_order": 5,
+            "rules": {
+              "min_length": 4
+            }
+          }
+        ]
+      },
+      {
+        "unique_key": "business_contact",
+        "title": "Business Contact Information",
+        "display_order": 2,
+        "questions": [
+          {
+            "unique_key": "contact_email",
+            "label": "Business Email",
+            "field_type": "text",
+            "required": true,
+            "display_order": 1,
+            "rules": {
+              "validation_profile": "email"
+            }
+          },
+          {
+            "unique_key": "contact_phone",
+            "label": "Business Phone Number",
+            "field_type": "text",
+            "required": true,
+            "display_order": 2,
+            "rules": {
+              "validation_profile": "phone_number"
+            }
+          }
+        ]
+      },
+      {
+        "unique_key": "ownership_details",
+        "title": "Ownership Details",
+        "display_order": 3,
+        "questions": [
+          {
+            "unique_key": "owner_full_name",
+            "label": "Owner Full Name",
+            "field_type": "text",
+            "required": true,
+            "display_order": 1,
+            "rules": {
+              "min_length": 3
+            }
+          },
+          {
+            "unique_key": "ownership_percentage",
+            "label": "Ownership Percentage",
+            "field_type": "text",
+            "required": true,
+            "display_order": 2,
+            "rules": {
+              "validation_profile": "percentage"
+            }
+          }
+        ]
+      },
+      {
+        "unique_key": "compliance_declaration",
+        "title": "Compliance Declaration",
+        "display_order": 4,
+        "questions": [
+          {
+            "unique_key": "is_pep",
+            "label": "Are you a Politically Exposed Person (PEP)?",
+            "field_type": "dropdown",
+            "required": true,
+            "display_order": 1,
+            "options": [
+              { "value": "yes", "display_order": 1 },
+              { "value": "no", "display_order": 2 }
+            ]
+          },
+          {
+            "unique_key": "terms_acceptance",
+            "label": "Accept Terms and Conditions",
+            "field_type": "dropdown",
+            "required": true,
+            "display_order": 2,
+            "options": [{ "value": "accepted", "display_order": 1 }]
+          }
+        ]
+      }
+    ],
+    "questions": []
+  }
+}

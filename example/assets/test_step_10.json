@@ -1,0 +1,120 @@
+{
+    "title": "Test Step 10: Edge Cases & Stress Test",
+    "submitApiUrl": "https://api.test.com/step10",
+    "nextFormApiUrl": "",
+    "buttonColor": "0xFFFF9800",
+    "fields": [
+        {
+            "id": "empty_dropdown",
+            "type": "dropdown",
+            "label": "Dropdown (No Options)",
+            "required": false,
+            "options": []
+        },
+        {
+            "id": "single_option_dropdown",
+            "type": "dropdown",
+            "label": "Dropdown (1 Option)",
+            "required": false,
+            "options": [
+                "Only Choice"
+            ]
+        },
+        {
+            "id": "single_radio",
+            "type": "radio",
+            "label": "Radio (1 Option)",
+            "required": false,
+            "options": [
+                "Single"
+            ]
+        },
+        {
+            "id": "unicode_field",
+            "type": "text",
+            "label": "Unicode Test (ኪፊያ 中文 العربية)",
+            "required": false,
+            "defaultValue": "Test: 😀 🎉 ✓"
+        },
+        {
+            "id": "special_chars",
+            "type": "text",
+            "label": "Special Characters Test",
+            "required": false,
+            "defaultValue": "<script>alert('xss')</script> & \" ' < >"
+        },
+        {
+            "id": "very_long_default",
+            "type": "text",
+            "label": "Long Default Value",
+            "required": false,
+            "defaultValue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."
+        },
+        {
+            "id": "many_field_1",
+            "type": "text",
+            "label": "Stress Test Field 1",
+            "required": false
+        },
+        {
+            "id": "many_field_2",
+            "type": "text",
+            "label": "Stress Test Field 2",
+            "required": false
+        },
+        {
+            "id": "many_field_3",
+            "type": "text",
+            "label": "Stress Test Field 3",
+            "required": false
+        },
+        {
+            "id": "many_field_4",
+            "type": "text",
+            "label": "Stress Test Field 4",
+            "required": false
+        },
+        {
+            "id": "many_field_5",
+            "type": "text",
+            "label": "Stress Test Field 5",
+            "required": false
+        },
+        {
+            "id": "many_field_6",
+            "type": "text",
+            "label": "Stress Test Field 6",
+            "required": false
+        },
+        {
+            "id": "many_field_7",
+            "type": "text",
+            "label": "Stress Test Field 7",
+            "required": false
+        },
+        {
+            "id": "many_field_8",
+            "type": "text",
+            "label": "Stress Test Field 8",
+            "required": false
+        },
+        {
+            "id": "many_field_9",
+            "type": "text",
+            "label": "Stress Test Field 9",
+            "required": false
+        },
+        {
+            "id": "many_field_10",
+            "type": "text",
+            "label": "Stress Test Field 10",
+            "required": false
+        },
+        {
+            "id": "final_confirm",
+            "type": "checkbox",
+            "label": "I confirm all information is correct",
+            "required": true
+        }
+    ]
+}

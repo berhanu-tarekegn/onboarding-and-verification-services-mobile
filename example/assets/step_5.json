@@ -1,0 +1,21 @@
+{
+    "title": "Step 5: Documents",
+    "submitApiUrl": "https://api.example.com/step5",
+    "nextFormApiUrl": "assets/step_6.json",
+    "buttonColor": "0xFFE91E63",
+    "sequentialFileUpload": true,
+    "fields": [
+        {
+            "id": "profile_photo",
+            "type": "fileUpload",
+            "label": "Upload Profile Photo",
+            "required": true
+        },
+        {
+            "id": "id_document",
+            "type": "fileUpload",
+            "label": "Upload ID Document",
+            "required": false
+        }
+    ]
+}

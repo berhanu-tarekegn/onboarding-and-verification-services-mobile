@@ -1,0 +1,90 @@
+{
+    "title": "Test Step 9: Mixed Field Types",
+    "submitApiUrl": "https://api.test.com/step9",
+    "nextFormApiUrl": "assets/test_step_10.json",
+    "buttonColor": "0xFF607D8B",
+    "fields": [
+        {
+            "id": "applicant_name",
+            "type": "text",
+            "label": "Full Name",
+            "required": true,
+            "rowGroup": "name"
+        },
+        {
+            "id": "applicant_dob",
+            "type": "date",
+            "label": "Date of Birth",
+            "required": true,
+            "rowGroup": "name",
+            "dateFormat": "dd/MM/yyyy",
+            "maxDate": "2006-01-01T00:00:00.000"
+        },
+        {
+            "id": "gender",
+            "type": "radio",
+            "label": "Gender",
+            "required": true,
+            "options": [
+                "Male",
+                "Female",
+                "Other"
+            ]
+        },
+        {
+            "id": "email",
+            "type": "text",
+            "label": "Email Address",
+            "required": true,
+            "keyboardType": "email",
+            "regex": "^[\\w.-]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+        },
+        {
+            "id": "country",
+            "type": "dropdown",
+            "label": "Country",
+            "required": true,
+            "options": [
+                "Ethiopia",
+                "Kenya",
+                "Uganda",
+                "Tanzania",
+                "Rwanda",
+                "Other"
+            ]
+        },
+        {
+            "id": "other_country",
+            "type": "text",
+            "label": "Specify Country",
+            "required": false,
+            "dependsOn": "country",
+            "visibleWhenEquals": "Other"
+        },
+        {
+            "id": "subscribe_newsletter",
+            "type": "checkbox",
+            "label": "Subscribe to newsletter",
+            "required": false,
+            "defaultValue": true
+        },
+        {
+            "id": "profile_pic",
+            "type": "fileUpload",
+            "label": "Profile Picture",
+            "required": false
+        },
+        {
+            "id": "terms_accepted",
+            "type": "checkbox",
+            "label": "I accept the terms and conditions",
+            "required": true
+        },
+        {
+            "id": "application_signature",
+            "type": "signature",
+            "label": "Digital Signature",
+            "required": true
+        }
+    ]
+}

@@ -1,0 +1,260 @@
+{
+  "version_tag": "2026.03.27",
+  "rules_config": {
+    "submission_search": {
+      "filters": [
+        {
+          "key": "national_id",
+          "path": "national_id",
+          "label": "National ID",
+          "source": "form_data",
+          "operators": ["eq", "contains"]
+        },
+        {
+          "key": "phone_number",
+          "path": "phone_number",
+          "label": "Phone Number",
+          "source": "form_data",
+          "operators": ["eq", "contains"]
+        },
+        {
+          "key": "name_match_score",
+          "path": "steps.name_match.result_snapshot.score",
+          "label": "Name Match Score",
+          "source": "verification",
+          "operators": ["gte", "lte"]
+        }
+      ]
+    },
+    "verification_flow": {
+      "steps": [
+        {
+          "key": "phone_otp",
+          "name": "Customer Phone OTP",
+          "type": "challenge_response",
+          "input": {
+            "phone_number": "$answers.phone_number"
+          },
+          "adapter": "demo_phone_otp",
+          "demo_code": "111111",
+          "max_attempts": 3
+        },
+        {
+          "key": "fayda_lookup",
+          "name": "Fayda OTP and Identity Pull",
+          "type": "challenge_response",
+          "input": {
+            "national_id": "$answers.national_id"
+          },
+          "adapter": "demo_fayda_otp",
+          "depends_on": ["phone_otp"],
+          "max_attempts": 3
+        },
+        {
+          "key": "name_match",
+          "name": "Applicant Name Match",
+          "type": "comparison",
+          "pairs": [
+            {
+              "left": "$answers.first_name",
+              "label": "First Name",
+              "right": "$steps.fayda_lookup.result.attributes.first_name"
+            },
+            {
+              "left": "$answers.last_name",
+              "label": "Last Name",
+              "right": "$steps.fayda_lookup.result.attributes.last_name"
+            }
+          ],
+          "adapter": "demo_fuzzy_match",
+          "depends_on": ["fayda_lookup"],
+          "pass_score_gte": 0.95,
+          "review_score_gte": 0.8
+        }
+      ],
+      "decision": {
+        "rules": [
+          {
+            "all": [
+              {
+                "fact": "steps.phone_otp.outcome",
+                "equals": "pass"
+              },
+              {
+                "fact": "steps.fayda_lookup.outcome",
+                "equals": "pass"
+              },
+              {
+                "gte": 0.95,
+                "fact": "steps.name_match.result.score"
+              }
+            ],
+            "decision": "approved",
+            "kyc_level": "level_2",
+            "reason_codes": [
+              "phone_verified",
+              "fayda_verified",
+              "name_match_passed"
+            ]
+          },
+          {
+            "all": [
+              {
+                "fact": "steps.phone_otp.outcome",
+                "equals": "pass"
+              },
+              {
+                "fact": "steps.fayda_lookup.outcome",
+                "equals": "pass"
+              },
+              {
+                "gte": 0.8,
+                "fact": "steps.name_match.result.score"
+              }
+            ],
+            "decision": "manual_review",
+            "kyc_level": "level_1",
+            "reason_codes": ["borderline_name_match"]
+          }
+        ],
+        "fallback": {
+          "decision": "rejected",
+          "kyc_level": "level_0",
+          "reason_codes": ["verification_failed"]
+        }
+      },
+      "flow_key": "default",
+      "demo_registry": {
+        "FID-ETH-0003456789": {
+          "otp_code": "222222",
+          "last_name": "Tesfaye",
+          "first_name": "Meron",
+          "date_of_birth": "1994-08-14",
+          "registered_phone": "+251911112233"
+        },
+        "FID-ETH-0003456790": {
+          "otp_code": "333333",
+          "last_name": "Kebede",
+          "first_name": "Dawit",
+          "date_of_birth": "1988-11-02",
+          "registered_phone": "+251922223344"
+        }
+      }
+    }
+  },
+  "changelog": "Retail and agent-assisted onboarding with Temporal-backed verification",
+  "id": "069c6e9e-2df4-7762-8000-6a38c8e0831e",
+  "template_id": "069c6e9e-2c88-7b86-8000-8c218a20c02a",
+  "copied_from_baseline_version_id": "069c6e8d-6664-753d-8000-84cb4287f249",
+  "is_draft": false,
+  "review_status": "approved",
+  "submitted_for_review_at": "2026-03-27T20:36:37.259297Z",
+  "submitted_for_review_by": "system",
+  "reviewed_at": "2026-03-27T20:36:37.297790Z",
+  "reviewed_by": "system",
+  "review_notes": "Automated demo seed approval",
+  "question_groups": [
+    {
+      "unique_key": "identity",
+      "title": "Identity",
+      "display_order": 1,
+      "submit_api_url": null,
+      "sequential_file_upload": false,
+      "questions": [
+        {
+          "unique_key": "first_name",
+          "label": "First Name",
+          "field_type": "text",
+          "required": true,
+          "display_order": 1,
+          "regex": null,
+          "keyboard_type": null,
+          "min_date": null,
+          "max_date": null,
+          "depends_on_unique_key": null,
+          "visible_when_equals": null,
+          "rules": null,
+          "options": [],
+          "id": "069c6e9e-2df6-76a5-8000-6f3749c7eb94",
+          "is_tenant_editable": false
+        },
+        {
+          "unique_key": "last_name",
+          "label": "Last Name",
+          "field_type": "text",
+          "required": true,
+          "display_order": 2,
+          "regex": null,
+          "keyboard_type": null,
+          "min_date": null,
+          "max_date": null,
+          "depends_on_unique_key": null,
+          "visible_when_equals": null,
+          "rules": null,
+          "options": [],
+          "id": "069c6e9e-2df7-7329-8000-410dee31b94c",
+          "is_tenant_editable": false
+        },
+        {
+          "unique_key": "national_id",
+          "label": "National ID",
+          "field_type": "text",
+          "required": true,
+          "display_order": 3,
+          "regex": null,
+          "keyboard_type": null,
+          "min_date": null,
+          "max_date": null,
+          "depends_on_unique_key": null,
+          "visible_when_equals": null,
+          "rules": null,
+          "options": [],
+          "id": "069c6e9e-2df7-7b28-8000-0cdd26b3f523",
+          "is_tenant_editable": false
+        },
+        {
+          "unique_key": "phone_number",
+          "label": "Phone Number",
+          "field_type": "text",
+          "required": true,
+          "display_order": 4,
+          "regex": null,
+          "keyboard_type": null,
+          "min_date": null,
+          "max_date": null,
+          "depends_on_unique_key": null,
+          "visible_when_equals": null,
+          "rules": null,
+          "options": [],
+          "id": "069c6e9e-2df8-73be-8000-ada83aca6e74",
+          "is_tenant_editable": false
+        }
+      ],
+      "id": "069c6e9e-2df5-79bc-8000-1a75fd7ad114",
+      "is_tenant_editable": true
+    }
+  ],
+  "ungrouped_questions": [],
+  "reviews": [
+    {
+      "id": "069c6ea5-5427-7b3d-8000-a208cb9b955f",
+      "definition_id": "069c6e9e-2df4-7762-8000-6a38c8e0831e",
+      "action": "submitted",
+      "notes": "Automated demo seed review submission",
+      "created_at": "2026-03-27T20:36:37.259511Z",
+      "created_by": "system"
+    },
+    {
+      "id": "069c6ea5-54c4-79fd-8000-bbe5a8c6f9f1",
+      "definition_id": "069c6e9e-2df4-7762-8000-6a38c8e0831e",
+      "action": "approved",
+      "notes": "Automated demo seed approval",
+      "created_at": "2026-03-27T20:36:37.297862Z",
+      "created_by": "system"
+    }
+  ],
+  "created_at": "2026-03-27T20:34:42.872034Z",
+  "updated_at": "2026-03-27T20:36:37.337646Z",
+  "created_by": "system",
+  "updated_by": "system"
+}

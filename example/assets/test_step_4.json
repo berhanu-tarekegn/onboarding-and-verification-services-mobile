@@ -1,0 +1,104 @@
+{
+    "title": "Test Step 4: Checkboxes & Conditional Visibility",
+    "submitApiUrl": "https://api.test.com/step4",
+    "nextFormApiUrl": "assets/test_step_5.json",
+    "buttonColor": "0xFFFF5722",
+    "fields": [
+        {
+            "id": "checkbox_basic",
+            "type": "checkbox",
+            "label": "Basic Checkbox",
+            "required": false
+        },
+        {
+            "id": "checkbox_required",
+            "type": "checkbox",
+            "label": "I agree to terms and conditions",
+            "required": true
+        },
+        {
+            "id": "checkbox_default_true",
+            "type": "checkbox",
+            "label": "Pre-checked Checkbox",
+            "required": false,
+            "defaultValue": true
+        },
+        {
+            "id": "checkbox_long_label",
+            "type": "checkbox",
+            "label": "This is a checkbox with a very long label that should wrap to multiple lines and still be clickable and readable by the user",
+            "required": false
+        },
+        {
+            "id": "show_details",
+            "type": "checkbox",
+            "label": "Show Additional Details",
+            "required": false
+        },
+        {
+            "id": "conditional_text",
+            "type": "text",
+            "label": "Additional Details (Conditional)",
+            "required": false,
+            "dependsOn": "show_details",
+            "visibleWhenEquals": true
+        },
+        {
+            "id": "marital_status",
+            "type": "dropdown",
+            "label": "Marital Status",
+            "required": true,
+            "options": [
+                "Single",
+                "Married",
+                "Divorced",
+                "Widowed"
+            ]
+        },
+        {
+            "id": "spouse_name",
+            "type": "text",
+            "label": "Spouse Name",
+            "required": false,
+            "dependsOn": "marital_status",
+            "visibleWhenEquals": "Married"
+        },
+        {
+            "id": "employment_type",
+            "type": "radio",
+            "label": "Employment Type",
+            "required": true,
+            "options": [
+                "Employed",
+                "Self-Employed",
+                "Unemployed",
+                "Student",
+                "Retired"
+            ]
+        },
+        {
+            "id": "employer_name",
+            "type": "text",
+            "label": "Employer Name",
+            "required": false,
+            "dependsOn": "employment_type",
+            "visibleWhenEquals": "Employed"
+        },
+        {
+            "id": "business_name",
+            "type": "text",
+            "label": "Business Name",
+            "required": false,
+            "dependsOn": "employment_type",
+            "visibleWhenEquals": "Self-Employed"
+        },
+        {
+            "id": "school_name",
+            "type": "text",
+            "label": "School/University Name",
+            "required": false,
+            "dependsOn": "employment_type",
+            "visibleWhenEquals": "Student"
+        }
+    ]
+}

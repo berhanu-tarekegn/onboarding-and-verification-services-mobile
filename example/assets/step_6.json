@@ -1,0 +1,21 @@
+{
+    "title": "Step 6: Signature",
+    "submitApiUrl": "https://api.example.com/step6",
+    "nextFormApiUrl": "",
+    "buttonColor": "0xFF4CAF50",
+    "fields": [
+        {
+            "id": "signature",
+            "type": "signature",
+            "label": "Your Signature",
+            "required": true
+        },
+        {
+            "id": "confirmation_date",
+            "type": "date",
+            "label": "Today's Date",
+            "required": true,
+            "dateFormat": "dd/MM/yyyy"
+        }
+    ]
+}
